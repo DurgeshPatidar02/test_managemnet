@@ -7,6 +7,7 @@ import 'package:test_managment/screens/test/insert_test/insertTest.dart';
 import 'package:test_managment/screens/test/model/unitModel.dart';
 import 'package:test_managment/screens/test/show_test/showTest.dart';
 
+import '../screens/test/insert_test/createTest.dart';
 import '../screens/test/insert_test/select_create_Unit.dart';
 import 'app_routes.dart';
 
@@ -57,5 +58,10 @@ class AppRouter {
             path: '/SelectCreateUnit',
             name: AppRoutes.selectCreateUnit,
             builder: (context, state) => const SelectCreateUnit()),
+        GoRoute(
+            path: '/CreateTest',
+            name: AppRoutes.createTest,
+            builder: (context, state) => const CreateTest()),
+
       ]);
 }

@@ -1,4 +1,4 @@
-import '../insert_test/questionModel.dart';
+import '../model/questionModel.dart';
 
 abstract class InsertState {}
 

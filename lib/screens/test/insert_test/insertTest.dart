@@ -11,8 +11,9 @@ import '../cubit/insertState.dart';
 import '../cubit/insert_cubit.dart';
 
 class InsertTest extends StatefulWidget {
-  final UnitModel unit ;
-  const InsertTest({required this.unit ,super.key});
+  final UnitModel unit;
+
+  const InsertTest({required this.unit, super.key});
 
   @override
   State<InsertTest> createState() => _InsertTestState();
@@ -121,7 +122,8 @@ class _InsertTestState extends State<InsertTest> {
                                           state.invalidAnswerIds.length
                                               .toString(),
                                           style: TextStyle(
-                                              color: state.invalidAnswerIds.isNotEmpty
+                                              color: state.invalidAnswerIds
+                                                      .isNotEmpty
                                                   ? Colors.red
                                                   : null),
                                         ),
@@ -144,7 +146,13 @@ class _InsertTestState extends State<InsertTest> {
                           ]),
                         ),
                         Space.height(height: 10),
-                        state.invalidAnswerIds.isEmpty ? TestInfoForm2(testName: state.fileName, questions: state.questions, unit: widget.unit,) : const Text("Resolve Error First"),
+                        state.invalidAnswerIds.isEmpty
+                            ? TestInfoForm2(
+                                testName: state.fileName,
+                                questions: state.questions,
+                                unit: widget.unit,
+                              )
+                            : const Text("Resolve Error First"),
                       ],
                     ),
                   );
@@ -164,11 +172,13 @@ class _InsertTestState extends State<InsertTest> {
                   AppSnackBar(Colors.green,
                       msg: "file inserted Successfully", context: _);
                 }
-                if(state is UploadSuccess){
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Test Uploded Successfully")));
+                if (state is UploadSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Test Uploded Successfully")));
                 }
-                if(state is UploadError){
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.msg)));
+                if (state is UploadError) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(state.msg)));
                 }
               })
             ],

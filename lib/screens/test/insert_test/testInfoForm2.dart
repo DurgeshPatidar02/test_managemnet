@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_managment/screens/test/insert_test/questionModel.dart';
-import 'package:test_managment/screens/test/insert_test/testModel.dart';
-
 import '../../../core/widgets/space.dart';
 import '../cubit/insert_cubit.dart';
+import '../model/questionModel.dart';
+import '../model/testModel.dart';
 import '../model/unitModel.dart';
 
 class TestInfoForm2 extends StatefulWidget {

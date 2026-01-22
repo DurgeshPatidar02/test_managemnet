@@ -1,4 +1,5 @@
-import 'package:test_managment/screens/test/insert_test/questionModel.dart';
+
+import 'questionModel.dart';
 
 class FileModel {
   String testName;

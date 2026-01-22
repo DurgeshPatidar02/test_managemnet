@@ -1,4 +1,4 @@
-import 'package:test_managment/screens/test/insert_test/questionModel.dart';
+import 'package:test_managment/screens/test/model/questionModel.dart';
 
 class  QuestionUploadModel{
   List<QuestionModel> question;

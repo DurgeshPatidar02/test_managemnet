@@ -1,12 +1,11 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:test_managment/screens/test/insert_test/fileModel.dart';
-import 'package:test_managment/screens/test/insert_test/testModel.dart';
-import 'package:test_managment/screens/test/model/questionUploadModel.dart';
+import 'package:test_managment/screens/test/model/fileModel.dart';
 import 'package:test_managment/services/file_picker/exel_file_picker.dart';
 
-import '../insert_test/questionModel.dart';
+import '../model/questionModel.dart';
+import '../model/testModel.dart';
 import '../model/unitModel.dart';
 import 'insertState.dart';
 
@@ -50,17 +49,19 @@ class InsertCubit extends Cubit<InsertState> {
     }
   }
 
-
   Future<void> uploadTest(TestModel test, List<QuestionModel> question) async {
     try {
-
       //final json for upload
       Map<String, dynamic> testJsonData = test.toJson();
       Map<String, dynamic> questionsJsonData = test.toJson();
       final supabase = Supabase.instance.client;
       try {
-        final response = await supabase.schema('test').from('tests').insert(testJsonData);
-        final response2 = await supabase.schema('test').from('questions').insert(questionsJsonData);
+        final response =
+            await supabase.schema('test').from('tests').insert(testJsonData);
+        final response2 = await supabase
+            .schema('test')
+            .from('questions')
+            .insert(questionsJsonData);
         if (response == null && response2 == null) {
           emit(UploadSuccess());
         }
