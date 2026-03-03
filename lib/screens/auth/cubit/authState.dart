@@ -24,3 +24,5 @@ class LogInError extends AuthStates{
   String msg;
   LogInError({required this.msg});
 }
+class NoUserFound extends AuthStates{}
+

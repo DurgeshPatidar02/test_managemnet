@@ -24,7 +24,7 @@ class ExcelFileOperation {
   }
 
   static Future<List<FileModel>?> fileOperation(
-      {required FilePickerResult result}) async {
+      {required FilePickerResult result, required String test_id}) async {
     final file = File(result.files.single.path!);
     final bytes = file.readAsBytesSync();
     final excel = Excel.decodeBytes(bytes);
@@ -68,12 +68,13 @@ class ExcelFileOperation {
           optionD: optionD,
           disc: disc,
           ans: ans,
+          test_id: test_id,
         ),
       );
     }
     // List<Map<String, dynamic>> data = questions.map((e)=> e.toJson()).toList();
 
-     returnbleList2.add(FileModel(
+    returnbleList2.add(FileModel(
         testName: fileName,
         questions: questions,
         totalQuestion: questions.length,

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:test_managment/core/widgets/button.dart';
 import 'package:test_managment/core/widgets/space.dart';
 import '../theme/theme.dart';
 
 class TestCard extends StatelessWidget {
   final String testName;
-  final String testDescription;
+  final String? testDescription;
   final VoidCallback onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
 
   const TestCard(
       {required this.testName,
-      required this.testDescription,
+      this.testDescription,
       required this.onTap,
       this.onDelete,
       this.onEdit,
@@ -28,7 +29,7 @@ class TestCard extends StatelessWidget {
           children: [
             Space.height(height: 20),
             Container(
-              height: 100,
+              height: 70,
               width: MediaQuery.of(context).size.width * .95,
               decoration: BoxDecoration(
                 color: ACCENT_COLOR,
@@ -36,19 +37,18 @@ class TestCard extends StatelessWidget {
                 border: Border.all(color: Colors.black),
               ),
               child: Padding(
-                padding: const EdgeInsetsGeometry.only(
-                    top: 2, bottom: 2, left: 10, right: 4),
+                padding: const EdgeInsetsGeometry.only(left: 10),
                 child: Row(
                   children: [
                     const Center(
                       child: ImageIcon(
                         AssetImage('assets/test_icon/test.png'),
-                        size: 60,
+                        size: 40,
                       ),
                     ),
                     Space.width(width: 10),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * .5,
+                      width: MediaQuery.of(context).size.width * .50,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,35 +57,37 @@ class TestCard extends StatelessWidget {
                             testName,
                             style: appTheme.textTheme.headlineMedium,
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
-                          Text(
-                            testDescription,
-                            style: appTheme.textTheme.bodyMedium
-                                ?.copyWith(color: Colors.black),
-                            overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
+                          testDescription == null
+                              ? Text("-")
+                              : Text(
+                                  testDescription!,
+                                  style: appTheme.textTheme.bodyMedium
+                                      ?.copyWith(color: Colors.black),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
                         ],
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * .11,
+                      width: MediaQuery.of(context).size.width * .10,
                       child: GestureDetector(
-                        onTap: onEdit,
+                        onTap: onDelete,
                         child: const ImageIcon(
                           AssetImage('assets/test_icon/edit.png'),
-                          size: 30,
+                          size: 20,
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * .11,
+                      width: MediaQuery.of(context).size.width * .10,
                       child: GestureDetector(
                         onTap: onDelete,
                         child: const ImageIcon(
                           AssetImage('assets/test_icon/delete.png'),
-                          size: 30,
+                          size: 20,
                         ),
                       ),
                     ),

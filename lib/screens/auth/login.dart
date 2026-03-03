@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:test_managment/core/theme/theme.dart';
 import 'package:test_managment/router/app_routes.dart';
 import 'package:test_managment/screens/auth/cubit/authState.dart';
+import 'package:test_managment/screens/auth/signup.dart';
 
 import '../../core/widgets/button.dart';
 import '../../core/widgets/space.dart';
@@ -30,8 +31,10 @@ class _LoginState extends State<Login> {
     return Scaffold(
         backgroundColor: ACCENT_COLOR,
         body: BlocConsumer<AuthCubit, AuthStates>(builder: (context, state) {
-          if(state is AuthLoading){
-            return Center(child: CircularProgressIndicator(),);
+          if (state is AuthLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
           return ListView(
             children: [
@@ -45,10 +48,7 @@ class _LoginState extends State<Login> {
                           style: appTheme.textTheme.bodyLarge
                               ?.copyWith(fontSize: 26)),
                       Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * .9,
+                        width: MediaQuery.of(context).size.width * .9,
                         height: 1,
                         color: Colors.black,
                       ),
@@ -110,23 +110,19 @@ class _LoginState extends State<Login> {
                               EButton(
                                   text: "Login",
                                   width:
-                                  MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width * 0.8,
+                                      MediaQuery.of(context).size.width * 0.8,
                                   context: context,
                                   onTap: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        String mail = _mailController.text
-                                            .trim()
-                                            .toLowerCase();
-                                        String password =
-                                        _passwordController.text.trim();
-                                        context.read<AuthCubit>().logIn(
-                                            mail: mail, password: password);
-                                      }
-                                      //execute further proceess
-
+                                    if (_formKey.currentState!.validate()) {
+                                      String mail = _mailController.text
+                                          .trim()
+                                          .toLowerCase();
+                                      String password =
+                                          _passwordController.text.trim();
+                                      context.read<AuthCubit>().logIn(
+                                          mail: mail, password: password);
+                                    }
+                                    //execute further proceess
                                   }),
                               Space.height(height: 10),
                               Row(
@@ -135,7 +131,12 @@ class _LoginState extends State<Login> {
                                   Text("If you don`t have account"),
                                   TextButton(
                                       onPressed: () {
-                                        context.goNamed(AppRoutes.signup);
+                                        // context.goNamed(AppRoutes.signup);
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Signup()));
                                       },
                                       child: Text("SignUP"))
                                 ],
@@ -152,20 +153,18 @@ class _LoginState extends State<Login> {
           );
         }, listener: (context, state) {
           if (state is LogInSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Login Successful"),
               backgroundColor: Colors.green,
             ));
-            context.goNamed(AppRoutes.showTest);
-
+            context.goNamed(AppRoutes.home);
           }
-          if (state is LogInError){
-          ScaffoldMessenger.of (context)
-          .showSnackBar(SnackBar(
-          content: Text("Login Failed"),
-          backgroundColor: Colors.red,
-          ));
-        }
+          if (state is LogInError) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Login Failed"),
+              backgroundColor: Colors.red,
+            ));
+          }
         }));
   }
 }

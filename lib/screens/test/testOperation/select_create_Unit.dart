@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_managment/router/app_routes.dart';
-import 'package:test_managment/screens/test/cubit/fetch_unit/FetchTab1Cubit.dart';
-import 'package:test_managment/screens/test/cubit/fetch_unit/FetchTab1State.dart';
-import 'package:test_managment/screens/test/cubit/fetch_unit/FetchTab2Cubit.dart';
-import 'package:test_managment/screens/test/cubit/fetch_unit/FetchTab2State.dart';
 import '../../../core/widgets/UnitCard.dart';
 import '../../../core/widgets/space.dart';
+import '../cubit/unit/Tab1Cubit.dart';
+import '../cubit/unit/Tab1State.dart';
+import '../cubit/unit/Tab2Cubit.dart';
+import '../cubit/unit/Tab2State.dart';
 
 class SelectCreateUnit extends StatefulWidget {
   const SelectCreateUnit({super.key});
@@ -71,13 +71,10 @@ class _SelectCreateUnitState extends State<SelectCreateUnit>
                       return UnitCard(
                         heading: unit.unitName,
                         onTap: () {
-                          context.pushNamed(AppRoutes.insertTest,
-                              extra: unit);
+                          context.pushNamed(AppRoutes.selectCreateTest, extra: unit);
                         },
                         onDelete: () {
-                          context
-                              .read<FetchTab1Cubit>()
-                              .deleteUnit(unit.id);
+                          context.read<FetchTab1Cubit>().deleteUnit(unit.id);
                         },
                       );
                     });
@@ -104,7 +101,7 @@ class _SelectCreateUnitState extends State<SelectCreateUnit>
                   backgroundColor: Colors.green,
                 ));
               }
-              if (state is FetchTab1NoEdit) {
+              if (state is FetchTab1Edit) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Unit Name Edited Successfully'),
                   backgroundColor: Colors.green,
@@ -116,67 +113,69 @@ class _SelectCreateUnitState extends State<SelectCreateUnit>
           // ---------------- Tab 2: Create Unit ----------------
           Padding(
               padding: const EdgeInsets.all(8.0),
-              child: BlocConsumer<FetchTab2Cubit, FetchTab2State>(
-                  builder: (context, state) {
-                if (state is FetchTab2Loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      Space.height(height: 50),
-                      TextFormField(
-                        key: UniqueKey(),
-                        controller: _unitNameCtrl,
-                        decoration: const InputDecoration(
-                          labelText: "Unit Name",
-                          border: OutlineInputBorder(),
+              child: SingleChildScrollView(
+                child: BlocConsumer<FetchTab2Cubit, FetchTab2State>(
+                    builder: (context, state) {
+                  if (state is FetchTab2Loading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Space.height(height: 50),
+                        TextFormField(
+                          key: UniqueKey(),
+                          controller: _unitNameCtrl,
+                          decoration: const InputDecoration(
+                            labelText: "Unit Name",
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (v) => v == null || v.isEmpty
+                              ? 'Unit name required'
+                              : null,
                         ),
-                        validator: (v) => v == null || v.isEmpty
-                            ? 'Unit name required'
-                            : null,
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            context.read<FetchTab2Cubit>().createUnit(
-                                unitName: _unitNameCtrl.text.trim());
-                          }
-                        },
-                        child: const Text("Create Unit"),
-                      ),
-                    ],
-                  ),
-                );
-              }, listener: (context, state) {
-                if (state is FetchTab2Created) {
-                  context.read<FetchTab1Cubit>().loadUnits();
-                  _tabController.animateTo(0);
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Unit Created Successfully'),
-                    backgroundColor: Colors.green,
-                  ));
-                }
-                if (state is FetchTab2Exist) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text(
-                      "This Unit is already Exist",
-                      style: TextStyle(color: Colors.black),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              context.read<FetchTab2Cubit>().createUnit(
+                                  unitName: _unitNameCtrl.text.trim());
+                            }
+                          },
+                          child: const Text("Create Unit"),
+                        ),
+                      ],
                     ),
-                    backgroundColor: Colors.yellow,
-                  ));
-                }
-                if (state is FetchTab2Error) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Error Occurred'),
-                    backgroundColor: Colors.red,
-                  ));
-                }
-              })),
+                  );
+                }, listener: (context, state) {
+                  if (state is FetchTab2Created) {
+                    context.read<FetchTab1Cubit>().loadUnits();
+                    _tabController.animateTo(0);
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Unit Created Successfully'),
+                      backgroundColor: Colors.green,
+                    ));
+                  }
+                  if (state is FetchTab2Exist) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                        "This Unit is already Exist",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      backgroundColor: Colors.yellow,
+                    ));
+                  }
+                  if (state is FetchTab2Error) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Error Occurred'),
+                      backgroundColor: Colors.red,
+                    ));
+                  }
+                }),
+              )),
         ],
       ),
     );

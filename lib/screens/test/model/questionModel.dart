@@ -1,4 +1,5 @@
 class QuestionModel {
+  final String test_id;
   final int no;
   final String question;
   final String optionA;
@@ -17,30 +18,32 @@ class QuestionModel {
     required this.optionD,
     required this.disc,
     required this.ans,
-
+    required this.test_id,
   });
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "no": no,
         "question": question,
-        "option_A": optionA,
-        "option_B": optionB,
-        "option_C": optionC,
-        "option_D": optionD,
+        "optionA": optionA,
+        "optionB": optionB,
+        "optionC": optionC,
+        "optionD": optionD,
         "disc": disc,
         "ans": ans,
-
+        "test_id": test_id,
       };
 
-  factory QuestionModel.fromJson(Map<String, dynamic> json){
-    return QuestionModel(no: json['no'],
+  factory QuestionModel.fromJson(Map<String, dynamic> json) {
+    return QuestionModel(
+      no: json['no'],
       question: json['question'],
       optionA: json['optionA'],
       optionB: json["optionB"],
       optionC: json['optionC'],
       optionD: json['optionD'],
       disc: json['disc'],
-      ans: json['ans'],);
+      ans: json['ans'],
+      test_id: json['test_id'],
+    );
   }
 }

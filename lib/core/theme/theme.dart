@@ -24,13 +24,19 @@ ThemeData appTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: PRIMARY_COLOR, // Default button color
+      textStyle: TextStyle(color: Colors.black)
     ),
   ),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: PRIMARY_COLOR,
+  ),
 
-
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: ACCENT_COLOR,
+    selectedItemColor : Colors.black,
   )
+
   // iconTheme: IconThemeData(
   //   color: Colors.blue, // Default icon color
   // ),

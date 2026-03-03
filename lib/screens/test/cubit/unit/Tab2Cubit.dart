@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:test_managment/screens/test/cubit/fetch_unit/FetchTab1State.dart';
-import 'package:test_managment/screens/test/cubit/fetch_unit/FetchTab2State.dart';
+
+import 'Tab2State.dart';
 
 class FetchTab2Cubit extends Cubit<FetchTab2State> {
   FetchTab2Cubit() : super(FetchTab2Initial());

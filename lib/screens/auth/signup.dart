@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_managment/screens/auth/cubit/authCubit.dart';
 import 'package:test_managment/screens/auth/cubit/authState.dart';
+import 'package:test_managment/screens/auth/login.dart';
 
 import '../../core/theme/theme.dart';
 import '../../core/widgets/button.dart';
@@ -161,7 +162,8 @@ class _SignupState extends State<Signup> {
                                   const Text("already SignUp"),
                                   TextButton(
                                       onPressed: () {
-                                        context.goNamed(AppRoutes.login);
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
+                                        // Navigator.pop(context);
                                       },
                                       child: Text("LogIn"))
                                 ],

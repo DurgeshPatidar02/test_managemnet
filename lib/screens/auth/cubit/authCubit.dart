@@ -9,13 +9,15 @@ import 'authState.dart';
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitial());
 
-  Future<void> logOut({required BuildContext context}) async {
+
+
+  Future<void> logOut() async {
+    print("Print From auth cubit of LogOut");
     emit(AuthLoading());
     final supabase = Supabase.instance.client;
     try {
       final response = supabase.auth.signOut();
       emit(LogOutSuccess());
-      context.goNamed(AppRoutes.login);
     } catch (e) {
       emit(LogOutError(msg: e.toString()));
     }
@@ -34,7 +36,7 @@ class AuthCubit extends Cubit<AuthStates> {
       final user = response.user;
       if (user != null) {
         emit(AuthSuccess(UserId: user.id));
-        context.go(AppRoutes.showTest);
+        context.goNamed(AppRoutes.home);
       }
     } catch (e) {
       emit(AuthError(msg: e.toString()));
@@ -53,6 +55,7 @@ class AuthCubit extends Cubit<AuthStates> {
         emit(LogInSuccess(UserId: user.id));
       }
     } catch (e) {
+      print(e);
       emit(LogInError(msg: e.toString()));
     }
   }

@@ -10,7 +10,7 @@ class FetchTab1NoFound extends FetchTab1State {}
 
 class FetchTab1Delete extends FetchTab1State {}
 
-class FetchTab1NoEdit extends FetchTab1State {}
+class FetchTab1Edit extends FetchTab1State {}
 
 class FetchTab1Success extends FetchTab1State {
   List<UnitModel> units;

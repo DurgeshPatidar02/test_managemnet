@@ -3,11 +3,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'testFetchState.dart';
 
-class TestFetchCubit extends Cubit<TestFetchState>{
-  TestFetchCubit(): super(TestFetchInitial());
+class TestFetchCubit extends Cubit<TestFetchState> {
+  TestFetchCubit() : super(TestFetchInitial());
 
-  Future <void> fetchTest()async {
-    emit(TestFechLoding());
+  Future<void> fetchTest() async {
+    emit(TestFetchLoading());
 
     final supabase = Supabase.instance.client;
 
